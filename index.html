@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dicionário HTML & CSS</title>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
+        
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        #search {
+            width: 100%;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            gap: 2rem;
+        }
+        
+        .sidebar {
+            flex: 1;
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            height: fit-content;
+        }
+        
+        .filters {
+            list-style: none;
+        }
+        
+        .filters li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .filters button {
+            background: none;
+            border: none;
+            text-align: left;
+            padding: 8px 12px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.2s;
+            color: var(--dark);
+            font-size: 1rem;
+        }
+        
+        .filters button:hover, .filters button.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .content {
+            flex: 3;
+        }
+        
+        .dictionary-item {
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s;
+        }
+        
+        .dictionary-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .tag-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light);
+        }
+        
+        .tag-name {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-right: 1rem;
+            font-weight: bold;
+        }
+        
+        .tag-type {
+            background: var(--secondary);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+        
+        .description {
+            margin-bottom: 1.2rem;
+            color: #555;
+        }
+        
+        .code-example {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            line-height: 1.5;
+        }
+        
+        .code-example .tag {
+            color: #e6db74;
+        }
+        
+        .code-example .attribute {
+            color: #a6e22e;
+        }
+        
+        .code-example .value {
+            color: #ae81ff;
+        }
+        
+        .code-example .comment {
+            color: #75715e;
+        }
+        
+        .usage {
+            margin-top: 1rem;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .properties {
+            margin-top: 1.2rem;
+        }
+        
+        .properties h4 {
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+        }
+        
+        .properties ul {
+            list-style-position: inside;
+            color: #555;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+            background: var(--secondary);
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Dicionário de HTML & CSS</h1>
+        <p class="subtitle">Aprenda os elementos HTML e propriedades CSS com exemplos práticos</p>
+        <div class="search-container">
+            <input type="text" id="search" placeholder="Pesquisar elemento ou propriedade...">
+        </div>
+    </header>
+    
+    <div class="container">
+        <aside class="sidebar">
+            <h3>Filtrar por Categoria</h3>
+            <ul class="filters">
+                <li><button class="active" data-filter="all">Todos os Elementos</button></li>
+                <li><button data-filter="html">HTML Básico</button></li>
+                <li><button data-filter="semantic">HTML Semântico</button></li>
+                <li><button data-filter="form">Formulários HTML</button></li>
+                <li><button data-filter="layout">CSS Layout</button></li>
+                <li><button data-filter="text">CSS Texto</button></li>
+            </ul>
+        </aside>
+        
+        <main class="content">
+            <div class="dictionary-item" data-categories="html">
+                <div class="tag-title">
+                    <span class="tag-name">&lt;div&gt;</span>
+                    <span class="tag-type">HTML</span>
+                </div>
+                <p class="description">A tag &lt;div&gt; é um container genérico para conteúdo de fluxo. Não tem significado específico e é usado para agrupar elementos para fins de estilização.</p>
+                <div class="code-example">
+                    <span class="tag">&lt;div</span> <span class="attribute">class</span>=<span class="value">"container"</span><span class="tag">&gt;</span><br>
+                    &nbsp;&nbsp;<span class="tag">&lt;p</span><span class="tag">&gt;</span>Conteúdo aqui<span class="tag">&lt;/p&gt;</span><br>
+                    <span class="tag">&lt;/div&gt;</span>
+                </div>
+                <p class="usage">Uso comum: Para criar layouts e agrupar elementos.</p>
+            </div>
+            
+            <div class="dictionary-item" data-categories="semantic">
+                <div class="tag-title">
+                    <span class="tag-name">&lt;header&gt;</span>
+                    <span class="tag-type">HTML</span>
+                </div>
+                <p class="description">Representa um container para conteúdo introdutório ou um conjunto de links de navegação.</p>
+                <div class="code-example">
+                    <span class="tag">&lt;header&gt;</span><br>
+                    &nbsp;&nbsp;<span class="tag">&lt;h1</span><span class="tag">&gt;</span>Título do Site<span class="tag">&lt;/h1&gt;</span><br>
+                    &nbsp;&nbsp;<span class="tag">&lt;nav&gt;</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">&lt;!-- links de navegação --&gt;</span><br>
+                    &nbsp;&nbsp;<span class="tag">&lt;/nav&gt;</span><br>
+                    <span class="tag">&lt;/header&gt;</span>
+                </div>
+                <p class="usage">Uso comum: No topo da página ou como cabeçalho de seções.</p>
+            </div>
+            
+            <div class="dictionary-item" data-categories="form">
+                <div class="tag-title">
+                    <span class="tag-name">&lt;input&gt;</span>
+                    <span class="tag-type">HTML</span>
+                </div>
+                <p class="description">Usado para criar campos interativos para formulários baseados na web.</p>
+                <div class="code-example">
+                    <span class="tag">&lt;input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">placeholder</span>=<span class="value">"Digite seu nome"</span><span class="tag">&gt;</span><br>
+                    <span class="tag">&lt;input</span> <span class="attribute">type</span>=<span class="value">"email"</span> <span class="attribute">placeholder</span>=<span class="value">"seu@email.com"</span><span class="tag">&gt;</span><br>
+                    <span class="tag">&lt;input</span> <span class="attribute">type</span>=<span class="value">"password"</span> <span class="attribute">placeholder</span>=<span class="value">"Sua senha"</span><span class="tag">&gt;</span>
+                </div>
+                <p class="usage">Uso comum: Coletar dados do usuário em formulários.</p>
+                <div class="properties">
+                    <h4>Tipos comuns:</h4>
+                    <ul>
+                        <li>text - Campo de texto</li>
+                        <li>email - Campo de e-mail</li>
+                        <li>password - Campo de senha</li>
+                        <li>checkbox - Caixa de seleção</li>
+                        <li>radio - Botão de opção</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="dictionary-item" data-categories="layout">
+                <div class="tag-title">
+                    <span class="tag-name">display</span>
+                    <span class="tag-type">CSS</span>
+                </div>
+                <p class="description">A propriedade display especifica o tipo de caixa de renderização usada por um elemento.</p>
+                <div class="code-example">
+                    <span class="selector">.elemento</span> {<br>
+                    &nbsp;&nbsp;<span class="property">display</span>: <span class="value">block</span>;<br>
+                    }<br><br>
+                    <span class="selector">.outro-elemento</span> {<br>
+                    &nbsp;&nbsp;<span class="property">display</span>: <span class="value">flex</span>;<br>
+                    }
+                </div>
+                <p class="usage">Uso comum: Controlar o layout e posicionamento de elementos.</p>
+                <div class="properties">
+                    <h4>Valores comuns:</h4>
+                    <ul>
+                        <li>block - Ocupa toda a largura disponível</li>
+                        <li>inline - Permite outros elementos ao lado</li>
+                        <li>flex - Layout flexível</li>
+                        <li>grid - Layout em grade</li>
+                        <li>none - Oculta o elemento</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="dictionary-item" data-categories="text">
+                <div class="tag-title">
+                    <span class="tag-name">font-family</span>
+                    <span class="tag-type">CSS</span>
+                </div>
+                <p class="description">Especifica a fonte a ser usada para um elemento.</p>
+                <div class="code-example">
+                    <span class="selector">body</span> {<br>
+                    &nbsp;&nbsp;<span class="property">font-family</span>: <span class="value">'Arial', sans-serif</span>;<br>
+                    }<br><br>
+                    <span class="selector">.titulo</span> {<br>
+                    &nbsp;&nbsp;<span class="property">font-family</span>: <span class="value">'Georgia', serif</span>;<br>
+                    }
+                </div>
+                <p class="usage">Uso comum: Definir a tipografia do site.</p>
+                <div class="properties">
+                    <h4>Valores comuns:</h4>
+                    <ul>
+                        <li>Nomes de fontes específicas (Arial, Times New Roman, etc.)</li>
+                        <li>Famílias genéricas (serif, sans-serif, monospace)</li>
+                        <li>Fontes personalizadas com @font-face</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="dictionary-item" data-categories="layout">
+                <div class="tag-title">
+                    <span class="tag-name">flexbox</span>
+                    <span class="tag-type">CSS</span>
+                </div>
+                <p class="description">O Flexible Box Layout Module (Flexbox) torna mais fácil projetar layouts flexíveis e eficientes.</p>
+                <div class="code-example">
+                    <span class="selector">.container</span> {<br>
+                    &nbsp;&nbsp;<span class="property">display</span>: <span class="value">flex</span>;<br>
+                    &nbsp;&nbsp;<span class="property">justify-content</span>: <span class="value">space-between</span>;<br>
+                    &nbsp;&nbsp;<span class="property">align-items</span>: <span class="value">center</span>;<br>
+                    }
+                </div>
+                <p class="usage">Uso comum: Criar layouts responsivos e alinhar elementos.</p>
+                <div class="properties">
+                    <h4>Propriedades principais:</h4>
+                    <ul>
+                        <li>justify-content - Alinhamento horizontal</li>
+                        <li>align-items - Alinhamento vertical</li>
+                        <li>flex-direction - Direção dos elementos</li>
+                        <li>flex-wrap - Quebra de linha</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <footer>
+        <p>Dicionário HTML & CSS - Recursos para desenvolvedores web</p>
+    </footer>
+
+    <script>
+        // Funcionalidade de filtro
+        document.querySelectorAll('.filters button').forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove a classe active de todos os botões
+                document.querySelectorAll('.filters button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Adiciona a classe active ao botão clicado
+                button.classList.add('active');
+                
+                const filter = button.getAttribute('data-filter');
+                const items = document.querySelectorAll('.dictionary-item');
+                
+                if (filter === 'all') {
+                    items.forEach(item => {
+                        item.style.display = 'block';
+                    });
+                } else {
+                    items.forEach(item => {
+                        if (item.getAttribute('data-categories').includes(filter)) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                }
+            });
+        });
+        
+        // Funcionalidade de busca
+        document.getElementById('search').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const items = document.querySelectorAll('.dictionary-item');
+            
+            items.forEach(item => {
+                const tagName = item.querySelector('.tag-name').textContent.toLowerCase();
+                const description = item.querySelector('.description').textContent.toLowerCase();
+                
+                if (tagName.includes(searchTerm) || description.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
